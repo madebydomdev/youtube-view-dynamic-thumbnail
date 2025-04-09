@@ -3,16 +3,19 @@
     {
       "type": "aws-sam",
       "request": "direct-invoke",
-      "name": "vscode-breakpoint:src/handlers/hello-from-lambda.helloFromLambdaHandler (nodejs20.x)",
+      "name": "youtube-view-dynamic-thumbnail:src/handlers/app.handler (nodejs20.x)",
       "invokeTarget": {
         "target": "code",
         "projectRoot": "${workspaceFolder}/",
-        "lambdaHandler": "src/handlers/hello-from-lambda.helloFromLambdaHandler"
+        "lambdaHandler": "src/handlers/app.handler"
       },
       "lambda": {
         "runtime": "nodejs20.x",
         "payload": {},
-        "environmentVariables": {}
+        "environmentVariables": {
+          "NODE_ATTRIBUTE": "@_id",
+          "NODE_VALUE": "view-count"
+        }
       }
     }
   ]
