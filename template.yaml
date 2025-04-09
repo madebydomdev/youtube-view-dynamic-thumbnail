@@ -5,6 +5,10 @@ Resources:
       CodeUri: .
       Handler: app.handler
       Runtime: nodejs20.x
+      Environment:
+        Variables:
+          NODE_ATTRIBUTE: "@_id"
+          NODE_VALUE: "view-count"
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
@@ -13,6 +17,8 @@ Resources:
         OutExtension:
           - .js=.mjs
         Target: es2020
-        Sourcemap: true
+        Sourcemap: inline
+        Loader:
+          - .svg=file
         EntryPoints:
           - src/app.ts

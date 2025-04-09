@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "youtube-view-dynamic-thumbnail:src/app.handler (nodejs20.x)",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "template.yaml",
+        "logicalId": "DynamicThumbnailFunction"
+      },
+      "lambda": {
+        "runtime": "nodejs20.x",
+        "payload": {},
+        "environmentVariables": {},
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceRoot}/src",
+            "remoteRoot": "/var/task"
+          }
+        ]
+      }
+    }
+  ]
+}
