@@ -1,23 +1,24 @@
 {
-  "name": "youtube-view-dynamic-thumbnail",
-  "version": "1.0.0",
-  "description": "Live YouTube views in the thumbnail",
-  "main": "index.ts",
-  "type": "module",
-  "scripts": {},
-  "packageManager": "pnpm@10.7.0",
+  "name": "replaced-by-user-input",
+  "description": "replaced-by-user-input",
+  "version": "0.0.1",
+  "private": true,
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
-    "@types/aws-lambda": "^8.10.148",
-    "@types/node": "^22.14.0",
-    "eslint": "^9.23.0",
-    "globals": "^16.0.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.29.0"
+    "jest": "^29.2.1"
   },
-  "dependencies": {
-    "esbuild": "^0.25.2",
-    "fast-xml-parser": "^5.2.0"
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)",
+      "**/__tests__/**/*.mjs?(x)",
+      "**/?(*.)+(spec|test).mjs?(x)"
+    ],
+    "moduleFileExtensions": [
+      "mjs",
+      "js"
+    ]
   }
 }
