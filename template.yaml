@@ -35,5 +35,5 @@ Resources:
         Variables:
           NODE_ATTRIBUTE: "@_id"
           NODE_VALUE: "view-count"
-          DYNAMIC_FONT_MAPPING: '{"attribute":"id","value":"view-count-wrapper","characters":[{"range":[1,4],"size":400,"y":320},{"range":5,"size":360,"y":340},{"range":6,"size":320,"y":340},{"range":7,"size":270,"y":360},{"range":8,"size":240,"y":440},{"range":9,"size":220,"y":380},{"range":10,"size":180,"y":360}]}'
+          DYNAMIC_FONT_MAPPING: '{"attribute":"id","value":"view-count-wrapper","characters":[{"range":[1,4],"size":400},{"range":5,"size":360},{"range":6,"size":320},{"range":7,"size":270},{"range":8,"size":240},{"range":9,"size":220},{"range":10,"size":180}]}'
           FONTCONFIG_PATH: "/var/task/fonts"

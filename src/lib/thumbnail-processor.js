@@ -82,7 +82,7 @@ const findByAttribute = (obj, attribute, value) => {
 
 /** Non-blocking - may throw errors.
  *
- * ⚠️ Be prepared to catch them.
+ * ⚠️ Be prepared to catch.
  */
 const updateFont = (svg, mappings, length) => {
   var { attribute, value, characters } = JSON.parse(mappings);
@@ -90,7 +90,7 @@ const updateFont = (svg, mappings, length) => {
   if (!node) return;
 
   for (var style of characters) {
-    var { range, size, y } = style;
+    var { range, size } = style;
 
     var inRange = Array.isArray(range)
       ? range[0] <= length && length <= range[1]
@@ -98,7 +98,6 @@ const updateFont = (svg, mappings, length) => {
 
     if (inRange) {
       node["@_font-size"] = size;
-      node["@_y"] = y;
       break;
     }
   }
