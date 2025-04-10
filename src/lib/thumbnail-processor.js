@@ -1,7 +1,7 @@
 import { XMLBuilder, XMLParser } from "fast-xml-parser";
 
 import fs from "fs";
-import path from "path";
+import sharp from "sharp";
 
 export const updateTextInSvg = (filepath, nodeToFind, newValue) => {
   var svg = parseSvg(readSvg(filepath));
@@ -13,7 +13,21 @@ export const updateTextInSvg = (filepath, nodeToFind, newValue) => {
   );
 
   nodeToUpdate["#text"] = newValue;
-  saveSvg(buildSvg(svg));
+
+  if (process.env.DYNAMIC_FONT_MAPPING) {
+    try {
+      updateFont(svg, process.env.DYNAMIC_FONT_MAPPING, newValue.length);
+    } catch {}
+  }
+
+  return buildSvg(svg);
+};
+
+export const svgToPng = async (svgBuffer) => {
+  var pngPath = "/tmp/thumbnail.png";
+  await sharp(svgBuffer).resize(1280, 720).png().toFile(pngPath);
+
+  return pngPath;
 };
 
 const readSvg = (filepath) => {
@@ -37,13 +51,7 @@ const buildSvg = (svg) => {
     format: true,
   });
 
-  return builder.build(svg);
-};
-
-const saveSvg = (svg) => {
-  const filePath = path.join("/tmp", "output.svg");
-  fs.writeFileSync(filePath, svg);
-  console.log();
+  return Buffer.from(builder.build(svg));
 };
 
 const findNodeToUpdate = (svg, attribute, value) => {
@@ -70,4 +78,28 @@ const findByAttribute = (obj, attribute, value) => {
   }
 
   return undefined;
+};
+
+/** Non-blocking - may throw errors.
+ *
+ * ⚠️ Be prepared to catch them.
+ */
+const updateFont = (svg, mappings, length) => {
+  var { attribute, value, characters } = JSON.parse(mappings);
+  var node = findByAttribute(svg, "@_" + attribute, value);
+  if (!node) return;
+
+  for (var style of characters) {
+    var { range, size, y } = style;
+
+    var inRange = Array.isArray(range)
+      ? range[0] <= length && length <= range[1]
+      : range === length;
+
+    if (inRange) {
+      node["@_font-size"] = size;
+      node["@_y"] = y;
+      break;
+    }
+  }
 };
